@@ -18,6 +18,7 @@ class Action {
     // weak references
     std::list<ActivatedInput*> m_inputs;
     ActionFunc* m_entryPoint; ///< Abstraction of the function to run
+    bool m_check; // The run function was called
 public:
     
     Action();
@@ -59,6 +60,9 @@ public:
     
     // this function is called by an Input when the action may be activated. Is up to the Action itself to call the run() method if it's necessary
     void inputCheck(Input* inp);
+    
+    inline bool check() const { return m_check; }
+    inline void resetCheck() { m_check = false; }
 
     
     ~Action();
@@ -105,14 +109,14 @@ struct ActionMemberFunc : ActionFunc
 
 template <typename F>
 Action::Action(F functor) :
-m_entryPoint(new ActionFunctor<F>(functor))
+m_entryPoint(new ActionFunctor<F>(functor)), m_check(false)
 {
 }
 
 
 template <typename F, typename A>
 Action::Action(F function, A argument) :
-m_entryPoint(new ActionFunctorWithArg<F, A>(function, argument))
+m_entryPoint(new ActionFunctorWithArg<F, A>(function, argument)), m_check(false)
 {
 }
 
@@ -145,12 +149,13 @@ void Action::bind(F function, A argument)
 
 template <typename C>
 Action::Action(void(C::*function)(), C* object) :
-m_entryPoint(new ActionMemberFunc<C>(function, object))
+m_entryPoint(new ActionMemberFunc<C>(function, object)), m_check(false)
 {
 }
 
 inline void Action::run()
 {
+    m_check = true;
     if (m_entryPoint)
         m_entryPoint->run();
 }

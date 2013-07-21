@@ -8,6 +8,7 @@
 
 #include "Input.hpp"
 #include "Action.hpp"
+#include "Keyboard.hpp"
 #include <iostream>
 
 Input::Input(inputType type): m_type(type), m_pressed(false), m_released(false), m_down(false), m_continousCheck(false)
@@ -55,9 +56,7 @@ void Input::update(bool isPressed)
 {
     //m_pressed = !m_down && isPressed;
     //m_released = m_down && !isPressed;
-    if (m_type == inp_mouse && isPressed)
-        std::cerr<<"mouse pressed.\n";
-    //m_down = isPressed;
+    m_down = isPressed;
     for (std::list<Action*>::iterator it(m_actions.begin()); it != m_actions.end(); ++it)
         (*it)->inputCheck(this);
 }

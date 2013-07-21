@@ -18,7 +18,7 @@ class InputManager {
     std::vector<Input*> m_inputs;
     std::map<std::string, Action*> m_actions;
     
-    int m_mouseWhellDelta;
+    int m_mouseWheelDelta;
     
 public:
     InputManager();
@@ -35,4 +35,7 @@ public:
     void update(const sf::Event& event);
     //when there are no events this must be called aswell!
     void updateDowns();
+    
+    //Access to variables
+    inline int getMouseWheelDelta() const { return m_mouseWheelDelta; }
 };

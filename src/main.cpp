@@ -55,7 +55,7 @@ int main(int, char const**)
     Action* act(new Action(&test1));
     inp.addAction(act, "test");
     //inp.addKeyToAction(act, sf::Keyboard::Num1, act_keyPress);
-    inp.addMouseToAction(act, sf::Mouse::Left, act_mouseRelease);
+    inp.addMouseToAction(act, sf::Mouse::Right, act_mouseRelease);
     
     act = new Action(&test2);
     inp.addAction(act, "test2");
@@ -65,10 +65,13 @@ int main(int, char const**)
     inp.addKeyToAction(act, sf::Keyboard::B, act_keyDown);
     window.setKeyRepeatEnabled(false);
 
-
+    
+    
     // Start the game loop
     while (window.isOpen())
     {
+        // this must be done before the event loop
+        inp.updateDowns();
         // Process events
         sf::Event event;
         while (window.pollEvent(event))
@@ -85,7 +88,6 @@ int main(int, char const**)
             
             inp.update(event);
         }
-        inp.updateDowns();
 
         // Clear screen
         window.clear();

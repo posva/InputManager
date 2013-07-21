@@ -22,7 +22,7 @@ static const unsigned int joystickIndex[sf::Joystick::Count] = {
     (mouseIndex+sf::Mouse::ButtonCount+(sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*7+1)
 };
 
-InputManager::InputManager() : m_inputs(sf::Keyboard::KeyCount + sf::Mouse::ButtonCount + (sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*sf::Joystick::Count - 2), m_mouseWhellDelta(0)
+InputManager::InputManager() : m_inputs(sf::Keyboard::KeyCount + sf::Mouse::ButtonCount + (sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*sf::Joystick::Count - 2), m_mouseWheelDelta(0)
 {
     for (unsigned int i = 0; i < m_inputs.size(); ++i)
     {
@@ -56,8 +56,7 @@ InputManager::~InputManager()
 
 void InputManager::update(const sf::Event &event)
 {
-    m_mouseWhellDelta = 0;
-
+    // Check the events
     switch (event.type) {
         case sf::Event::KeyPressed:
             m_inputs[event.key.code-sf::Keyboard::A]->setPressed();
@@ -74,7 +73,7 @@ void InputManager::update(const sf::Event &event)
             m_inputs[mouseIndex+event.mouseButton.button]->setReleased();
             break;
         case sf::Event::MouseWheelMoved:
-            m_mouseWhellDelta = event.mouseWheel.delta;
+            m_mouseWheelDelta = event.mouseWheel.delta;
             break;
 
         default:
@@ -86,6 +85,12 @@ void InputManager::update(const sf::Event &event)
 
 void InputManager::updateDowns()
 {
+    m_mouseWheelDelta = 0;
+    
+    // Reset the check for every Action
+    for (std::map<std::string,Action*>::iterator it = m_actions.begin(); it != m_actions.end(); ++it)
+        it->second->resetCheck();
+
     //The continous checks
     for (unsigned int i(0); i < mouseIndex+sf::Mouse::ButtonCount; ++i) // TODO change by size()
     {

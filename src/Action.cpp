@@ -11,7 +11,7 @@
 #include <iostream>
 
 
-Action::Action() : m_entryPoint(NULL)
+Action::Action() : m_entryPoint(NULL), m_check(false)
 {
 }
 

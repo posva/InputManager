@@ -18,6 +18,7 @@ enum ActivationMethod {
     act_keyEnd,
     act_mouseBegin,
     act_mouseMouve,
+    act_mouseWheel,
     act_mouseClick,
     act_mouseDown,
     act_mouseRelease,
