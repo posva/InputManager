@@ -55,7 +55,7 @@ int main(int, char const**)
     Action* act(new Action(&test1));
     inp.addAction(act, "test");
     //inp.addKeyToAction(act, sf::Keyboard::Key::Num1, act_keyPress);
-    inp.addMouseToAction(act, sf::Mouse::Left, act_mouseDown);
+    inp.addMouseToAction(act, sf::Mouse::Left, act_mouseRelease);
     
     act = new Action(&test2);
     inp.addAction(act, "test2");
@@ -91,7 +91,7 @@ int main(int, char const**)
         window.clear();
 
         // Draw the sprite
-        sprite.setColor(sf::Mouse::isButtonPressed(sf::Mouse::Left)?sf::Color::Red:sf::Color::White);
+        //sprite.setColor(sf::Mouse::isButtonPressed(sf::Mouse::Left)?sf::Color::Red:sf::Color::White);
         window.draw(sprite);
 
         // Update the window
