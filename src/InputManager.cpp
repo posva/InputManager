@@ -27,7 +27,7 @@ InputManager::InputManager() : m_inputs(sf::Keyboard::KeyCount + sf::Mouse::Butt
     for (int i = 0; i < m_inputs.size(); ++i)
     {
         m_inputs[i] = NULL;
-        
+
         if (i < sf::Keyboard::KeyCount)
         {
             m_inputs[i] = new Keyboard(static_cast<KeyboardKey>(i));
@@ -39,8 +39,8 @@ InputManager::InputManager() : m_inputs(sf::Keyboard::KeyCount + sf::Mouse::Butt
             assert(m_inputs[i]);
         }
     }
-    
-    
+
+
 }
 
 InputManager::~InputManager()
@@ -48,7 +48,7 @@ InputManager::~InputManager()
     for (int i = 0; i < m_inputs.size(); ++i)
         if (m_inputs[i]) delete m_inputs[i];
     m_inputs.clear();
-    
+
     for (std::map<std::string,Action*>::iterator it = m_actions.begin(); it != m_actions.end(); ++it)
         delete it->second;
     m_actions.clear();
@@ -57,7 +57,7 @@ InputManager::~InputManager()
 void InputManager::update(const sf::Event &event)
 {
     m_mouseWhellDelta = 0;
-    
+
     switch (event.type) {
         case sf::Event::KeyPressed:
             m_inputs[event.key.code-sf::Keyboard::A]->setPressed();
@@ -65,29 +65,29 @@ void InputManager::update(const sf::Event &event)
         case sf::Event::KeyReleased:
             m_inputs[event.key.code-sf::Keyboard::A]->setReleased();
             break;
-        
+
         case sf::Event::MouseButtonPressed:
             m_inputs[mouseIndex+event.mouseButton.button]->setPressed();
             break;
-            
+
         case sf::Event::MouseButtonReleased:
             m_inputs[mouseIndex+event.mouseButton.button]->setReleased();
             break;
         case sf::Event::MouseWheelMoved:
             m_mouseWhellDelta = event.mouseWheel.delta;
             break;
-            
+
         default:
             break;
     }
-    
-    
+
+
 }
 
 void InputManager::updateDowns()
 {
     //The continous checks
-    for (unsigned int i(0); i < mouseIndex+MouseButton::ButtonCount; ++i) // TODO change by size()
+    for (unsigned int i(0); i < mouseIndex+sf::Mouse::ButtonCount; ++i) // TODO change by size()
     {
         if (m_inputs[i]->isContinous())
         {

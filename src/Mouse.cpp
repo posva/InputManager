@@ -28,16 +28,16 @@ Mouse::Mouse(const std::string& but): Input(inp_mouse), m_but(Mouse::getButton(b
 MouseButton Mouse::getButton(const std::string& but)
 {
     if (but.size() <= 0 || but[0] == 'L' || but[0] == 'l')
-        return MouseButton::Left;
+        return sf::Mouse::Left;
     else if (but[0] == 'R' || but[0] == 'r')
-        return MouseButton::Right;
+        return sf::Mouse::Right;
     else if (but[0] == 'M' || but[0] == 'm')
-        return MouseButton::Middle;
+        return sf::Mouse::Middle;
     else if (but[0] == 'X')
-        return (but.size() > 1 && but[1] == '2')?MouseButton::XButton2:MouseButton::XButton1;
+        return (but.size() > 1 && but[1] == '2')?sf::Mouse::XButton2:sf::Mouse::XButton1;
     else
-        return MouseButton::Left;
-        
+        return sf::Mouse::Left;
+
 }
 
 
