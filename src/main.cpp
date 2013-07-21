@@ -21,6 +21,8 @@
 // Here is a small helper for you ! Have a look.
 #include "ResourcePath.hpp"
 #include "InputManager.hpp"
+#include "FPS.hpp"
+
 
 static InputManager* IM(NULL);
 
@@ -43,6 +45,11 @@ int main(int, char const**)
 {
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    
+    sf::Font font;
+    font.loadFromFile(resourcePath()+"sansation.ttf");
+    
+    FPS fps(font);
 
     // Set the Icon
     sf::Image icon;
@@ -90,6 +97,9 @@ int main(int, char const**)
     
     
     // Start the game loop
+    fps.step();
+    fps.setColor(sf::Color::Black);
+    fps.setPosition(10, 10);
     while (window.isOpen())
     {
         // this must be done before the event loop
@@ -111,12 +121,14 @@ int main(int, char const**)
             inp.update(event);
         }
 
+        fps.step();
         // Clear screen
         window.clear();
 
         // Draw the sprite
         //sprite.setColor(sf::Mouse::isButtonPressed(sf::Mouse::Left)?sf::Color::Red:sf::Color::White);
         window.draw(sprite);
+        window.draw(fps);
 
         // Update the window
         window.display();

@@ -34,6 +34,7 @@ public:
     
     //Access to variables
     inline int getMouseWheelDelta() const { return m_mouseWheelDelta; }
+    inline const sf::Vector2i& getMousePosition() const { return m_mousePosition; }
     
     // if the action doesn't exists yet, it's created
     Action* getAction(const std::string& action);

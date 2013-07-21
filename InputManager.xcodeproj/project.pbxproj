@@ -35,6 +35,7 @@
 		346F424E1796BC9B00C63270 /* InputManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InputManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		346F42521796BC9C00C63270 /* InputManager-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InputManager-Info.plist"; sourceTree = "<group>"; };
 		346F42531796BC9C00C63270 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
+		349C9232179C8B85007EFB67 /* FPS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FPS.hpp; path = src/FPS.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 				340F8977179C034600183FA2 /* Input.hpp */,
 				340F8978179C034600183FA2 /* InputManager.cpp */,
 				340F8979179C034600183FA2 /* InputManager.hpp */,
+				349C9232179C8B85007EFB67 /* FPS.hpp */,
 				340F897A179C034600183FA2 /* Keyboard.cpp */,
 				340F897B179C034600183FA2 /* Keyboard.hpp */,
 				340F897C179C034600183FA2 /* main.cpp */,
