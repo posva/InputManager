@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Posva Games. All rights reserved.
 //
 
-#include "InputManager.h"
+#include "InputManager.hpp"
 #include <cassert>
 #include <iostream>
 
@@ -22,7 +22,7 @@ static const unsigned int joystickIndex[sf::Joystick::Count] = {
     (mouseIndex+sf::Mouse::Button::ButtonCount+(sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*7+1)
 };
 
-InputManager::InputManager() : m_inputs(sf::Keyboard::Key::KeyCount + sf::Mouse::Button::ButtonCount + (sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*sf::Joystick::Count - 2)
+InputManager::InputManager() : m_inputs(sf::Keyboard::Key::KeyCount + sf::Mouse::Button::ButtonCount + (sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*sf::Joystick::Count - 2), m_mouseWhellDelta(0)
 {
     for (int i = 0; i < m_inputs.size(); ++i)
     {
@@ -33,7 +33,13 @@ InputManager::InputManager() : m_inputs(sf::Keyboard::Key::KeyCount + sf::Mouse:
             m_inputs[i] = new Keyboard(static_cast<KeyboardKey>(i));
             assert(m_inputs[i]);
         }
+        else if (i < mouseIndex+sf::Mouse::ButtonCount)
+        {
+            m_inputs[i] = new Mouse(static_cast<MouseButton>(i-mouseIndex));
+            assert(m_inputs[i]);
+        }
     }
+    
     
 }
 
@@ -50,6 +56,8 @@ InputManager::~InputManager()
 
 void InputManager::update(const sf::Event &event)
 {
+    m_mouseWhellDelta = 0;
+    
     switch (event.type) {
         case sf::Event::KeyPressed:
             m_inputs[event.key.code-sf::Keyboard::Key::A]->setPressed();
@@ -57,16 +65,38 @@ void InputManager::update(const sf::Event &event)
         case sf::Event::KeyReleased:
             m_inputs[event.key.code-sf::Keyboard::Key::A]->setReleased();
             break;
+        
+        case sf::Event::MouseButtonPressed:
+            m_inputs[mouseIndex+event.mouseButton.button]->setPressed();
+            break;
+            
+        case sf::Event::MouseButtonReleased:
+            m_inputs[mouseIndex+event.mouseButton.button]->setReleased();
+            break;
+        case sf::Event::MouseWheelMoved:
+            m_mouseWhellDelta = event.mouseWheel.delta;
+            break;
             
         default:
             break;
     }
     
+    
+}
+
+void InputManager::updateDowns()
+{
     //The continous checks
-    for (unsigned int i(0); i < sf::Keyboard::KeyCount; ++i) // TODO change by size()
+    for (unsigned int i(0); i < mouseIndex+MouseButton::ButtonCount; ++i) // TODO change by size()
     {
         if (m_inputs[i]->isContinous())
-            m_inputs[i]->update(sf::Keyboard::isKeyPressed(static_cast<Keyboard*>(m_inputs[i])->getKey()));
+        {
+            if (i<mouseIndex) //keyboard
+                m_inputs[i]->update(sf::Keyboard::isKeyPressed(static_cast<Keyboard*>(m_inputs[i])->getKey()));
+            else if (i<joystickIndex[0]) // it's a mouse
+                m_inputs[i]->update(sf::Mouse::isButtonPressed(static_cast<Mouse*>(m_inputs[i])->getButton()));
+
+        }
     }
 }
 
@@ -88,4 +118,9 @@ void InputManager::addKeyToAction(Action *action, KeyboardKey key, ActivationMet
 {
     // this fucntions verify everything which is needed
     action->addInput(m_inputs[key-sf::Keyboard::Key::A], method);
+}
+
+void InputManager::addMouseToAction(Action *action, MouseButton but, ActivationMethod method)
+{
+    action->addInput(m_inputs[mouseIndex+but], method);
 }

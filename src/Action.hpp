@@ -10,7 +10,7 @@
 
 #include <string>
 #include <list>
-#include "ActivatedInput.h"
+#include "ActivatedInput.hpp"
 
 struct ActionFunc;
 

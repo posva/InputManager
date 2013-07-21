@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Posva Games. All rights reserved.
 //
 
-#include "Action.h"
-#include "Input.h"
+#include "Action.hpp"
+#include "Input.hpp"
 #include <iostream>
 
 
@@ -84,6 +84,13 @@ void Action::inputCheck(Input *inp)
                     if (((*it)->getActivationMethod() == act_keyDown && inp->isDown())
                         || ((*it)->getActivationMethod() == act_keyPress && inp->isPressed())
                         || ((*it)->getActivationMethod() == act_keyRelease && inp->isReleased()))
+                        run();
+                    break;
+                    
+                case inp_mouse:
+                    if (((*it)->getActivationMethod() == act_mouseDown && inp->isDown())
+                        || ((*it)->getActivationMethod() == act_mouseClick && inp->isPressed())
+                        || ((*it)->getActivationMethod() == act_mouseRelease && inp->isReleased()))
                         run();
                     break;
                     

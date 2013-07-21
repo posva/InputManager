@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Posva Games. All rights reserved.
 //
 
-#include "Keyboard.h"
+#include "Keyboard.hpp"
 
 const std::string Keyboard::keyStringMapping[] = {
     "A",

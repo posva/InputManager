@@ -8,14 +8,17 @@
 
 #pragma once
 
-#include "Keyboard.h"
-#include "Action.h"
+#include "Keyboard.hpp"
+#include "Mouse.hpp"
+#include "Action.hpp"
 #include <vector>
 #include <map>
 
 class InputManager {
     std::vector<Input*> m_inputs;
     std::map<std::string, Action*> m_actions;
+    
+    int m_mouseWhellDelta;
     
 public:
     InputManager();
@@ -27,6 +30,9 @@ public:
     Action* addAction(Action* action, const std::string& name);
     
     void addKeyToAction(Action* action, KeyboardKey key, ActivationMethod method);
+    void addMouseToAction(Action* action, MouseButton but, ActivationMethod method);
     
     void update(const sf::Event& event);
+    //when there are no events this must be called aswell!
+    void updateDowns();
 };
