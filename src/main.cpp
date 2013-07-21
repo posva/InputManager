@@ -54,15 +54,15 @@ int main(int, char const**)
     InputManager inp;
     Action* act(new Action(&test1));
     inp.addAction(act, "test");
-    //inp.addKeyToAction(act, sf::Keyboard::Key::Num1, act_keyPress);
+    //inp.addKeyToAction(act, sf::Keyboard::Num1, act_keyPress);
     inp.addMouseToAction(act, sf::Mouse::Left, act_mouseRelease);
     
     act = new Action(&test2);
     inp.addAction(act, "test2");
-    //inp.addKeyToAction(act, sf::Keyboard::Key::A, act_keyRelease);
-    //inp.addKeyToAction(act, sf::Keyboard::Key::A, act_keyPress);
+    //inp.addKeyToAction(act, sf::Keyboard::A, act_keyRelease);
+    //inp.addKeyToAction(act, sf::Keyboard::A, act_keyPress);
     
-    inp.addKeyToAction(act, sf::Keyboard::Key::B, act_keyDown);
+    inp.addKeyToAction(act, sf::Keyboard::B, act_keyDown);
     window.setKeyRepeatEnabled(false);
 
 

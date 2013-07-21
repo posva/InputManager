@@ -29,7 +29,7 @@ public:
     static KeyboardKey getKey(const std::string& key);
     static inline const std::string& getString(KeyboardKey key)
     {
-        return keyStringMapping[(key>=sf::Keyboard::Key::KeyCount?sf::Keyboard::Key::Unknown:key)-sf::Keyboard::Key::A];
+        return keyStringMapping[(key>=sf::Keyboard::KeyCount?sf::Keyboard::Unknown:key)-sf::Keyboard::A];
     }
 
 };

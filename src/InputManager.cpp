@@ -12,23 +12,23 @@
 
 static const unsigned int mouseIndex(sf::Keyboard::KeyCount);
 static const unsigned int joystickIndex[sf::Joystick::Count] = {
-    (mouseIndex+sf::Mouse::Button::ButtonCount),
-    (mouseIndex+sf::Mouse::Button::ButtonCount+(sf::Joystick::ButtonCount+sf::Joystick::AxisCount)+1),
-    (mouseIndex+sf::Mouse::Button::ButtonCount+(sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*2+1),
-    (mouseIndex+sf::Mouse::Button::ButtonCount+(sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*3+1),
-    (mouseIndex+sf::Mouse::Button::ButtonCount+(sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*4+1),
-    (mouseIndex+sf::Mouse::Button::ButtonCount+(sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*5+1),
-    (mouseIndex+sf::Mouse::Button::ButtonCount+(sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*6+1),
-    (mouseIndex+sf::Mouse::Button::ButtonCount+(sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*7+1)
+    (mouseIndex+sf::Mouse::ButtonCount),
+    (mouseIndex+sf::Mouse::ButtonCount+(sf::Joystick::ButtonCount+sf::Joystick::AxisCount)+1),
+    (mouseIndex+sf::Mouse::ButtonCount+(sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*2+1),
+    (mouseIndex+sf::Mouse::ButtonCount+(sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*3+1),
+    (mouseIndex+sf::Mouse::ButtonCount+(sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*4+1),
+    (mouseIndex+sf::Mouse::ButtonCount+(sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*5+1),
+    (mouseIndex+sf::Mouse::ButtonCount+(sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*6+1),
+    (mouseIndex+sf::Mouse::ButtonCount+(sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*7+1)
 };
 
-InputManager::InputManager() : m_inputs(sf::Keyboard::Key::KeyCount + sf::Mouse::Button::ButtonCount + (sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*sf::Joystick::Count - 2), m_mouseWhellDelta(0)
+InputManager::InputManager() : m_inputs(sf::Keyboard::KeyCount + sf::Mouse::ButtonCount + (sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*sf::Joystick::Count - 2), m_mouseWhellDelta(0)
 {
     for (int i = 0; i < m_inputs.size(); ++i)
     {
         m_inputs[i] = NULL;
         
-        if (i < sf::Keyboard::Key::KeyCount)
+        if (i < sf::Keyboard::KeyCount)
         {
             m_inputs[i] = new Keyboard(static_cast<KeyboardKey>(i));
             assert(m_inputs[i]);
@@ -60,10 +60,10 @@ void InputManager::update(const sf::Event &event)
     
     switch (event.type) {
         case sf::Event::KeyPressed:
-            m_inputs[event.key.code-sf::Keyboard::Key::A]->setPressed();
+            m_inputs[event.key.code-sf::Keyboard::A]->setPressed();
             break;
         case sf::Event::KeyReleased:
-            m_inputs[event.key.code-sf::Keyboard::Key::A]->setReleased();
+            m_inputs[event.key.code-sf::Keyboard::A]->setReleased();
             break;
         
         case sf::Event::MouseButtonPressed:
@@ -117,7 +117,7 @@ Action* InputManager::addAction(Action *action, const std::string &name)
 void InputManager::addKeyToAction(Action *action, KeyboardKey key, ActivationMethod method)
 {
     // this fucntions verify everything which is needed
-    action->addInput(m_inputs[key-sf::Keyboard::Key::A], method);
+    action->addInput(m_inputs[key-sf::Keyboard::A], method);
 }
 
 void InputManager::addMouseToAction(Action *action, MouseButton but, ActivationMethod method)
