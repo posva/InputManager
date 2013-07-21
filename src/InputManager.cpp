@@ -24,7 +24,7 @@ static const unsigned int joystickIndex[sf::Joystick::Count] = {
 
 InputManager::InputManager() : m_inputs(sf::Keyboard::KeyCount + sf::Mouse::ButtonCount + (sf::Joystick::ButtonCount+sf::Joystick::AxisCount)*sf::Joystick::Count - 2), m_mouseWhellDelta(0)
 {
-    for (int i = 0; i < m_inputs.size(); ++i)
+    for (unsigned int i = 0; i < m_inputs.size(); ++i)
     {
         m_inputs[i] = NULL;
 
@@ -45,7 +45,7 @@ InputManager::InputManager() : m_inputs(sf::Keyboard::KeyCount + sf::Mouse::Butt
 
 InputManager::~InputManager()
 {
-    for (int i = 0; i < m_inputs.size(); ++i)
+    for (unsigned int i = 0; i < m_inputs.size(); ++i)
         if (m_inputs[i]) delete m_inputs[i];
     m_inputs.clear();
 

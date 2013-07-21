@@ -2,3 +2,7 @@ obj/
 bin/
 .DS_Store
 InputManager.xcodeproj/project.xcworkspace/xcuserdata/Edu.xcuserdatad/UserInterfaceState.xcuserstate
+CB/data
+CB/*.depend
+CB/*.dll
+
