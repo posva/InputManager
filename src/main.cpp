@@ -22,9 +22,16 @@
 #include "ResourcePath.hpp"
 #include "InputManager.hpp"
 
+static InputManager* IM(NULL);
+
 void test1()
 {
     std::cerr<<"Test 1 called!\n";
+}
+
+void mouseWheel(InputManager* inp)
+{
+    std::cerr<<"MouseWheel moved("<<inp->getAction("mouseWheel")->check()<<"): "<<inp->getMouseWheelDelta()<<".\n";
 }
 
 void test2()
@@ -52,17 +59,32 @@ int main(int, char const**)
     sf::Sprite sprite(texture);
     
     InputManager inp;
-    Action* act(new Action(&test1));
-    inp.addAction(act, "test");
+    IM = &inp;
+    Action* act(NULL);
+    act = inp.getAction("test");
+    act->bind(&test1);
     //inp.addKeyToAction(act, sf::Keyboard::Num1, act_keyPress);
-    inp.addMouseToAction(act, sf::Mouse::Right, act_mouseRelease);
+    inp.addMouseToAction(act, sf::Mouse::Right, act_mouseWheel);
     
-    act = new Action(&test2);
-    inp.addAction(act, "test2");
+    act = inp.getAction("mouseWheel");
+    std::cerr<<act<<" = "<<inp.getAction("mouseWheel")<<"\n";
+    act->bind(&mouseWheel, &inp);
+    inp.addMouseToAction(act, sf::Mouse::Middle, act_mouseWheel);
+    inp.addKeyToAction(act, sf::Keyboard::A, act_keyPress);
+    inp.addMouseToAction(act, sf::Mouse::Middle, act_mouseRelease);
+    
+    act = inp.getAction("actionCheck");
+    act->bind(&mouseWheel, &inp);
+    inp.addKeyToAction(act, sf::Keyboard::C, act_keyRelease);
+
+    
+    act = inp.getAction("test2");
+    act->bind(&test2);
     //inp.addKeyToAction(act, sf::Keyboard::A, act_keyRelease);
     //inp.addKeyToAction(act, sf::Keyboard::A, act_keyPress);
     
     inp.addKeyToAction(act, sf::Keyboard::B, act_keyDown);
+    inp.addMouseToAction(act, sf::Mouse::Left, act_mouseMove);
     window.setKeyRepeatEnabled(false);
 
     

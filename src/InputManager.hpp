@@ -19,15 +19,11 @@ class InputManager {
     std::map<std::string, Action*> m_actions;
     
     int m_mouseWheelDelta;
+    sf::Vector2i m_mousePosition;
     
 public:
     InputManager();
     ~InputManager();
-    
-    Action* addAction(const std::string& name);
-    
-    // if the name already exists the return value differs from action
-    Action* addAction(Action* action, const std::string& name);
     
     void addKeyToAction(Action* action, KeyboardKey key, ActivationMethod method);
     void addMouseToAction(Action* action, MouseButton but, ActivationMethod method);
@@ -38,4 +34,7 @@ public:
     
     //Access to variables
     inline int getMouseWheelDelta() const { return m_mouseWheelDelta; }
+    
+    // if the action doesn't exists yet, it's created
+    Action* getAction(const std::string& action);
 };

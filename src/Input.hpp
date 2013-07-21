@@ -40,4 +40,6 @@ public:
     inline inputType getType() const { return m_type; }
     inline bool isContinous() const { return m_continousCheck; }
     
+    void checkActions();
+    
 };

@@ -17,7 +17,7 @@ const std::string Mouse::mouseStringMapping[] = {
     ""
 };
 
-Mouse::Mouse(MouseButton but): Input(inp_mouse), m_but(but)
+Mouse::Mouse(MouseButton but): Input(inp_mouse), m_but(but), m_mouseWheel(false), m_mouseMoved(false)
 {
 }
 

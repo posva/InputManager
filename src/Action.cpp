@@ -8,6 +8,8 @@
 
 #include "Action.hpp"
 #include "Input.hpp"
+#include "Mouse.hpp"
+#include "Keyboard.hpp"
 #include <iostream>
 
 
@@ -54,7 +56,9 @@ void Action::addInput(Input *inp, ActivationMethod method)
             break;
             
         case inp_mouse:
-            if (method <= act_mouseBegin || method >= act_mouseEnd)
+            if (method <= act_mouseBegin || method >= act_mouseEnd
+                || (method == act_mouseWheel && static_cast<Mouse*>(inp)->getButton() != sf::Mouse::Middle)
+                || (method == act_mouseMove && static_cast<Mouse*>(inp)->getButton() != sf::Mouse::Left))
             {
                 std::cerr<<"Error adding input to Action, method conflits with Input type.\n";
                 return;
@@ -90,7 +94,9 @@ void Action::inputCheck(Input *inp)
                 case inp_mouse:
                     if (((*it)->getActivationMethod() == act_mouseDown && inp->isDown())
                         || ((*it)->getActivationMethod() == act_mouseClick && inp->isPressed())
-                        || ((*it)->getActivationMethod() == act_mouseRelease && inp->isReleased()))
+                        || ((*it)->getActivationMethod() == act_mouseRelease && inp->isReleased())
+                        || ((*it)->getActivationMethod() == act_mouseWheel && static_cast<Mouse*>(inp)->checkWheel())
+                        || ((*it)->getActivationMethod() == act_mouseMove && static_cast<Mouse*>(inp)->checkMoved()))
                         run();
                     break;
                     

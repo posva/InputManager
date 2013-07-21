@@ -74,6 +74,15 @@ void InputManager::update(const sf::Event &event)
             break;
         case sf::Event::MouseWheelMoved:
             m_mouseWheelDelta = event.mouseWheel.delta;
+            // we simulate
+            static_cast<Mouse*>(m_inputs[mouseIndex+sf::Mouse::Middle])->mouseWheelEvent(true);
+            static_cast<Mouse*>(m_inputs[mouseIndex+sf::Mouse::Middle])->mouseWheelEvent(false);
+            break;
+        case sf::Event::MouseMoved:
+            m_mousePosition.x = event.mouseMove.x;
+            m_mousePosition.y = event.mouseMove.y;
+            static_cast<Mouse*>(m_inputs[mouseIndex+sf::Mouse::Left])->mouseMovedEvent(true);
+            static_cast<Mouse*>(m_inputs[mouseIndex+sf::Mouse::Left])->mouseMovedEvent(false);
             break;
 
         default:
@@ -105,17 +114,11 @@ void InputManager::updateDowns()
     }
 }
 
-Action* InputManager::addAction(const std::string &name)
+Action* InputManager::getAction(const std::string &name)
 {
     if (m_actions.find(name) == m_actions.end())
         m_actions[name] = new Action();
-    return m_actions[name];
-}
 
-Action* InputManager::addAction(Action *action, const std::string &name)
-{
-    if (m_actions.find(name) == m_actions.end())
-        m_actions[name] = action;
     return m_actions[name];
 }
 

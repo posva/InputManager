@@ -57,8 +57,7 @@ void Input::update(bool isPressed)
     //m_pressed = !m_down && isPressed;
     //m_released = m_down && !isPressed;
     m_down = isPressed;
-    for (std::list<Action*>::iterator it(m_actions.begin()); it != m_actions.end(); ++it)
-        (*it)->inputCheck(this);
+    checkActions();
 }
 
 void Input::setPressed()
@@ -66,8 +65,7 @@ void Input::setPressed()
     m_pressed = true;
     m_down = true;
     m_released = false;
-    for (std::list<Action*>::iterator it(m_actions.begin()); it != m_actions.end(); ++it)
-        (*it)->inputCheck(this);
+    checkActions();
 }
 
 void Input::setReleased()
@@ -75,6 +73,12 @@ void Input::setReleased()
     m_pressed = false;
     m_down = false;
     m_released = true;
+    checkActions();
+}
+
+
+void Input::checkActions()
+{
     for (std::list<Action*>::iterator it(m_actions.begin()); it != m_actions.end(); ++it)
         (*it)->inputCheck(this);
 }
