@@ -6,3 +6,4 @@ CB/data
 CB/*.depend
 CB/*.dll
 
+*.layout

@@ -46,6 +46,7 @@
 		<Unit filename="../src/Action.cpp" />
 		<Unit filename="../src/Action.hpp" />
 		<Unit filename="../src/ActivatedInput.hpp" />
+		<Unit filename="../src/FPS.hpp" />
 		<Unit filename="../src/Input.cpp" />
 		<Unit filename="../src/Input.hpp" />
 		<Unit filename="../src/InputManager.cpp" />
