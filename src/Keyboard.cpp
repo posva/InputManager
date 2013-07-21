@@ -121,7 +121,7 @@ Keyboard::Keyboard(KeyboardKey key) : Input(inp_keyboard), m_key(key)
 }
 
 
-Keyboard::Keyboard(const std::string& key) : Keyboard(sf::Keyboard::Unknown)
+Keyboard::Keyboard(const std::string& key) : Input(inp_keyboard)
 {
     m_key = Keyboard::getKey(key);
 }
