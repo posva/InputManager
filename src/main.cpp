@@ -45,6 +45,8 @@ int main(int, char const**)
 {
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    //window.setVerticalSyncEnabled(true);
+    //window.setFramerateLimit(60);
     
     sf::Font font;
     font.loadFromFile(resourcePath()+"sansation.ttf");
@@ -100,8 +102,15 @@ int main(int, char const**)
     fps.step();
     fps.setColor(sf::Color::Black);
     fps.setPosition(10, 10);
+    
+    sf::Time timeNow(sf::seconds(1.f/60.f)), timeLast(sf::Time::Zero);
+    float frameDelta;
+    sf::Clock clock;
+    
     while (window.isOpen())
     {
+        frameDelta = timeNow.asSeconds() -  timeLast.asSeconds();
+        timeLast = timeNow;
         // this must be done before the event loop
         inp.updateDowns();
         // Process events
@@ -120,6 +129,9 @@ int main(int, char const**)
             
             inp.update(event);
         }
+        
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            std::cerr<<"frameDelta: "<<frameDelta<<"\n";
 
         fps.step();
         // Clear screen
@@ -131,6 +143,7 @@ int main(int, char const**)
         window.draw(fps);
 
         // Update the window
+        timeNow = clock.restart();
         window.display();
     }
     

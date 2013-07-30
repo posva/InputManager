@@ -12,7 +12,7 @@ class FPS : public sf::Text {
     FPS(const sf::Font& font) : sf::Text("0", font), mySteps(0)
     {}
 
-    void step()
+    float step()
     {
         ++mySteps;
 
@@ -26,5 +26,6 @@ class FPS : public sf::Text {
             mySteps = 0;
             myClock.restart();
         }
+        return time;
     }
 };
