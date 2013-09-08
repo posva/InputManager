@@ -8,3 +8,4 @@ CB/*.depend
 CB/*.dll
 
 *.layout
+Makefile
