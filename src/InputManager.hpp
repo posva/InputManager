@@ -26,7 +26,9 @@ public:
     ~InputManager();
     
     void addKeyToAction(Action* action, KeyboardKey key, ActivationMethod method);
+    void addKeyToAction(const std::string& action, KeyboardKey key, ActivationMethod method);
     void addMouseToAction(Action* action, MouseButton but, ActivationMethod method);
+    void addMouseToAction(const std::string& action, MouseButton but, ActivationMethod method);
     
     void update(const sf::Event& event);
     //when there are no events this must be called aswell!

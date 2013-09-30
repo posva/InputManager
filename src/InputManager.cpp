@@ -128,7 +128,17 @@ void InputManager::addKeyToAction(Action *action, KeyboardKey key, ActivationMet
     action->addInput(m_inputs[key-sf::Keyboard::A], method);
 }
 
+void InputManager::addKeyToAction(const std::string& action, KeyboardKey key, ActivationMethod method)
+{
+    getAction(action)->addInput(m_inputs[key-sf::Keyboard::A], method);
+}
+
 void InputManager::addMouseToAction(Action *action, MouseButton but, ActivationMethod method)
 {
     action->addInput(m_inputs[mouseIndex+but], method);
+}
+
+void InputManager::addMouseToAction(const std::string& action, MouseButton but, ActivationMethod method)
+{
+    getAction(action)->addInput(m_inputs[mouseIndex+but], method);
 }

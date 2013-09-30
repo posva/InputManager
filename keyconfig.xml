@@ -1,0 +1,17 @@
+<keys>
+  <action name="Trigger">
+    <key type="press">A</key>
+    <mouse type="press">Left</mouse>
+    <!-- Add down and release -->
+  </action>
+  <action name="Console">
+    <key type="press">F1</key>
+    <joy type="press">But10</joy>
+  </action>
+  <action name="Part">
+    <key type="press">P</key>
+  </action>
+  <action name="BodyCount">
+    <key type="press">B</key>
+  </action>
+</keys>

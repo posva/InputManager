@@ -103,14 +103,16 @@ int main(int, char const**)
     fps.setColor(sf::Color::Black);
     fps.setPosition(10, 10);
     
-    sf::Time timeNow(sf::seconds(1.f/60.f)), timeLast(sf::Time::Zero);
-    float frameDelta;
+    sf::Time timeNow(sf::seconds(1.f/60.f));
+    sf::Text txt("!", font);
+    txt.setColor(sf::Color::Black);
+    txt.setPosition(0, 100);
+    float frameDelta, timerate(0.1f);
     sf::Clock clock;
     
     while (window.isOpen())
     {
-        frameDelta = timeNow.asSeconds() -  timeLast.asSeconds();
-        timeLast = timeNow;
+        frameDelta = timeNow.asSeconds()/(1.f/60.f);
         // this must be done before the event loop
         inp.updateDowns();
         // Process events
@@ -129,11 +131,20 @@ int main(int, char const**)
             
             inp.update(event);
         }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+            std::cerr<<frameDelta<<"\n";
         
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-            std::cerr<<"frameDelta: "<<frameDelta<<"\n";
+            window.setFramerateLimit(60);
+        else
+            window.setFramerateLimit(0);
+            // std::cerr<<"frameDelta: "<<delta<<"\n";
 
         fps.step();
+        txt.setPosition(txt.getPosition() + sf::Vector2f(1.f*frameDelta*timerate, 0.f));
+        if (txt.getPosition().x > 800)
+            txt.setPosition(0.f, txt.getPosition().y);
         // Clear screen
         window.clear();
 
@@ -141,6 +152,7 @@ int main(int, char const**)
         //sprite.setColor(sf::Mouse::isButtonPressed(sf::Mouse::Left)?sf::Color::Red:sf::Color::White);
         window.draw(sprite);
         window.draw(fps);
+        window.draw(txt);
 
         // Update the window
         timeNow = clock.restart();
