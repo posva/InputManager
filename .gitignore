@@ -9,3 +9,4 @@ CB/*.dll
 
 *.layout
 Makefile
+InputManager.xcodeproj/project.xcworkspace/xcshareddata/
